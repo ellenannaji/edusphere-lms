@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+</head>
+
+<body>
+
+<h2>Course Quiz</h2>
+
+<form id="quizForm">
+
+    {% for q in questions %}
+    <div class="question">
+
+        <p><b>{{ q[2] }}</b></p>
+
+        <label><input type="radio" name="{{ q[0] }}" value="A"> {{ q[3] }}</label><br>
+        <label><input type="radio" name="{{ q[0] }}" value="B"> {{ q[4] }}</label><br>
+        <label><input type="radio" name="{{ q[0] }}" value="C"> {{ q[5] }}</label><br>
+        <label><input type="radio" name="{{ q[0] }}" value="D"> {{ q[6] }}</label><br>
+
+    </div>
+    <hr>
+    {% endfor %}
+
+    <button type="button" onclick="submitQuiz()">Submit</button>
+</form>
+
+<h3 id="result"></h3>
+
+<script>
+function submitQuiz() {
+
+    let answers = {};
+    let course_id = "{{ course_id }}";
+
+    document.querySelectorAll(".question").forEach(q => {
+
+        let id = q.querySelector("input").name;
+        let selected = q.querySelector("input:checked");
+
+        if (selected) {
+            answers[id] = selected.value;
+        }
+    });
+
+    fetch("/submit_quiz", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            answers: answers,
+            course_id: course_id
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("result").innerHTML =
+            "Score: " + data.score + " / " + data.total;
+    });
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaderboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🏆 Leaderboard</h1>
+
+<table border="1">
+
+    <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+    </tr>
+
+    {% for i in range(leaders|length) %}
+    <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ leaders[i][0] }}</td>
+        <td>{{ leaders[i][1] }} / {{ leaders[i][2] }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+
+</html>

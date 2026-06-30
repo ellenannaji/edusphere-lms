@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Courses | EduSphere</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+
+<body>
+
+
+<h1>Available Courses 📚</h1>
+
+
+<div class="course-container">
+
+
+{% for course in courses %}
+
+
+<div class="card">
+
+
+<h2>
+{{ course[1] }}
+</h2>
+
+
+<p>
+{{ course[2] }}
+</p>
+
+
+<h4>
+Instructor: {{ course[3] }}
+</h4>
+
+
+<a href="/course/{{ course[0] }}">
+<button>
+Start Course
+</button>
+</a>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+</body>
+
+</html>
